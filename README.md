@@ -33,16 +33,11 @@ Esta skill busca os resumos salvos por quem usa a **resumo-reunioes-teams**. Par
 
 ### Opção A — Pasta visível para toda a organização (recomendado)
 
-Se a pessoa que gera os resumos compartilhou a pasta com **"Todos na organização"** no SharePoint/OneDrive, qualquer colega autenticado no mesmo tenant já tem acesso automaticamente — sem nenhuma configuração extra.
+A pasta `Reuniões dos Times` já está compartilhada com toda a organização Thunders em modo de visualização:
 
-Para verificar se é o seu caso: pergunte a quem gera os resumos se a pasta `Reuniões dos Times` está compartilhada com a organização.
+> 📁 [Reuniões dos Times](https://thunderscombr-my.sharepoint.com/:f:/g/personal/sidney_silva_thunders_com_br/IgCLlEtMLkIGQIfrp_O8VP63AW3gpu1VJDuDA10Ihl_zpP4)
 
-**Para quem gera os resumos — como configurar o compartilhamento org-wide:**
-1. Abra o OneDrive no navegador
-2. Localize a pasta `Reuniões dos Times`
-3. Clique com botão direito → **Compartilhar**
-4. Em "Quem tem acesso", selecione **"Pessoas na organização \<nome da empresa\> podem exibir"**
-5. Salve — a pasta agora é pesquisável por qualquer colega
+Qualquer colega autenticado no tenant Thunders já tem acesso — **sem precisar solicitar nada**. Basta instalar a skill e conectar o Microsoft 365.
 
 ### Opção B — Compartilhamento individual
 
