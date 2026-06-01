@@ -97,7 +97,22 @@ Ao final da resposta, ofereça:
 
 Se a busca inicial não retornar resultados úteis, tente:
 1. Termos mais genéricos (ex: "aprovação" em vez de "aprovação do contrato comercial")
-2. Sem filtro de pasta (busca em todo OneDrive)
+2. Sem filtro de pasta (busca em todo SharePoint acessível)
 3. Pergunte ao usuário: "Em qual time ou período seria essa reunião?"
 
 Sempre prefira resultados de `Reuniões dos Times/` — são os resumos gerados pela skill. Outros arquivos no SharePoint podem ser irrelevantes.
+
+---
+
+## Acesso à pasta de resumos
+
+Os resumos ficam na pasta `Reuniões dos Times` no OneDrive de quem os gera. Para que a busca funcione, o usuário que consulta precisa ter acesso a essa pasta.
+
+**Se a busca não retornar nenhum resultado**, informe:
+> "Não encontrei resumos de reuniões. Isso pode significar que:
+> 1. Não há resumos salvos no período pesquisado, ou
+> 2. A pasta `Reuniões dos Times` não está compartilhada com você.
+>
+> Peça ao responsável pelos resumos para compartilhar a pasta ou torná-la visível para toda a organização no OneDrive."
+
+**Se a pasta for visível para a organização** (compartilhamento org-wide no SharePoint), qualquer colega autenticado no mesmo tenant consegue buscar e ler os arquivos sem configuração adicional.

@@ -22,8 +22,38 @@ Por padrão, busca apenas reuniões da semana atual. Para períodos anteriores, 
 ## Pré-requisitos
 
 - [Claude Code](https://claude.ai/code) instalado
-- Integração **Microsoft 365** habilitada no Claude Code (para acessar o SharePoint/OneDrive)
-- Skill **resumo-reunioes-teams** instalada e com ao menos um resumo salvo no OneDrive
+- Integração **Microsoft 365** habilitada no Claude Code
+- Acesso à pasta `Reuniões dos Times` no OneDrive de quem gera os resumos (veja abaixo)
+
+---
+
+## Acesso à pasta de resumos
+
+Esta skill busca os resumos salvos por quem usa a **resumo-reunioes-teams**. Para que a busca funcione, você precisa ter acesso à pasta `Reuniões dos Times` no OneDrive dessa pessoa.
+
+### Opção A — Pasta visível para toda a organização (recomendado)
+
+Se a pessoa que gera os resumos compartilhou a pasta com **"Todos na organização"** no SharePoint/OneDrive, qualquer colega autenticado no mesmo tenant já tem acesso automaticamente — sem nenhuma configuração extra.
+
+Para verificar se é o seu caso: pergunte a quem gera os resumos se a pasta `Reuniões dos Times` está compartilhada com a organização.
+
+**Para quem gera os resumos — como configurar o compartilhamento org-wide:**
+1. Abra o OneDrive no navegador
+2. Localize a pasta `Reuniões dos Times`
+3. Clique com botão direito → **Compartilhar**
+4. Em "Quem tem acesso", selecione **"Pessoas na organização \<nome da empresa\> podem exibir"**
+5. Salve — a pasta agora é pesquisável por qualquer colega
+
+### Opção B — Compartilhamento individual
+
+Se a pasta não for visível para a organização, peça ao dono da pasta para compartilhá-la diretamente com você:
+1. Dono: clique com botão direito em `Reuniões dos Times` → **Compartilhar**
+2. Adicione seu email com permissão de **visualização**
+3. Depois do compartilhamento, a busca da skill já encontra os arquivos
+
+### O que acontece sem acesso
+
+Se você instalar a skill sem ter acesso à pasta, as buscas não retornarão resultados. O Claude informará que não encontrou arquivos e sugerirá verificar o compartilhamento.
 
 ---
 
@@ -47,11 +77,13 @@ git clone https://github.com/sidneydiaraujo/reunioes-consulta
 
 ### 2. Habilite a integração Microsoft 365 no Claude Code
 
-Esta skill usa o MCP do Microsoft 365 para buscar documentos no SharePoint/OneDrive.
+No Claude Code, acesse as configurações de integrações e habilite **Microsoft 365**. Na primeira vez, o Claude vai solicitar autenticação com sua conta corporativa.
 
-No Claude Code, acesse as configurações de integrações e habilite **Microsoft 365**. Na primeira vez, o Claude vai solicitar autenticação.
+### 3. Verifique o acesso à pasta
 
-### 3. Reinicie o Claude Code
+Confirme com quem gera os resumos que você tem acesso à pasta `Reuniões dos Times` (Opção A ou B acima).
+
+### 4. Reinicie o Claude Code
 
 Feche e reabra o Claude Code para carregar a skill.
 
