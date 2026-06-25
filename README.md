@@ -1,6 +1,12 @@
 # reunioes-consulta
 
-Skill do Claude Code que busca e responde perguntas sobre reuniões salvas no OneDrive, consultando os resumos gerados pela skill **resumo-reunioes-teams**.
+Skill do Claude Code que busca e responde perguntas sobre reuniões salvas no OneDrive. Faz parte de um ecossistema de três peças para gestão automática de reuniões:
+
+| Peça | O que faz |
+|---|---|
+| **Rotina diária 13:45** (Claude Desktop) | Varre transcrições do Teams, salva resumos no OneDrive e envia rascunho no Gmail |
+| **reunioes-consulta** (esta skill) | Consulta em linguagem natural os resumos e documentos RF salvos |
+| **resumo-reunioes-teams** (skill manual) | Processa e salva uma reunião específica sob demanda |
 
 ---
 
@@ -13,7 +19,7 @@ Permite consultar em linguagem natural o conteúdo das reuniões salvas:
 - Quais **pendências** estão em aberto
 - Quais **riscos** foram levantados
 - O que **fulano** ficou responsável de fazer
-- Qualquer conteúdo dos resumos de reuniões
+- **Requisitos Funcionais** de refinamentos: RF-XX, critérios de aceite, escopo, glossário
 
 Por padrão, busca apenas reuniões da semana atual. Para períodos anteriores, basta pedir explicitamente.
 
@@ -101,7 +107,8 @@ Feche e reabra o Claude Code para carregar a skill.
 
 ```
 reunioes-consulta/
-├── SKILL.md    # Definição da skill (lida pelo Claude)
+├── SKILL.md               # Definição da skill (lida pelo Claude)
+├── rotina-diaria-1345.md  # Prompt da rotina diária para o Claude Desktop
 └── README.md
 ```
 
@@ -109,10 +116,46 @@ Esta skill não possui scripts Python — toda a busca é feita via integração
 
 ---
 
+## Rotina diária automática (13:45 BRT)
+
+O arquivo [`rotina-diaria-1345.md`](./rotina-diaria-1345.md) contém o prompt completo da rotina configurada no Claude Desktop para execução diária às 13:45 BRT. Cole o conteúdo na rotina do Claude Desktop para ativá-la.
+
+### O que a rotina faz
+
+1. **Calcula a janela de varredura:** 14:00 BRT do último dia útil anterior → 13:45 BRT de hoje
+2. **Verifica o OneDrive** (fonte primária) — ignora reuniões que já têm resumo salvo
+3. **Busca reuniões no calendário** com filtros (cancela, Diálogo de Inovação, organizadores bloqueados)
+4. **Processa transcrições** do Teams por tipo:
+   - Dailys e reuniões especiais → resumo estruturado (participantes, decisões, próximos passos)
+   - Refinamentos / Iterações → documento de Requisito Funcional com 8 seções (template Thunders)
+5. **Salva localmente no OneDrive** — sincronizado automaticamente para o SharePoint:
+
+   ```
+   C:\Users\sidne\OneDrive\Reuniões dos Times\
+   ├── B2B\
+   ├── Projetos\
+   ├── Evolução\
+   ├── B2B2C\
+   ├── Refinamentos\
+   └── Outros\
+   ```
+
+6. **Cria rascunho consolidado no Gmail** com as 3 seções (Dailys / Reuniões / Refinamentos)
+7. **Exibe relatório final** com contagem de reuniões processadas, ignoradas e sem transcrição
+
+### Integrações necessárias no Claude Desktop
+
+- Microsoft 365 (leitura de calendário e transcrições)
+- Gmail (criação de rascunho)
+- Acesso ao sistema de arquivos local (gravação em `C:\Users\sidne\OneDrive\`)
+
+---
+
 ## Integração com resumo-reunioes-teams
 
 Esta skill é complementar à **resumo-reunioes-teams**:
-- `resumo-reunioes-teams` → processa e salva os resumos no OneDrive
-- `reunioes-consulta` → busca e responde perguntas sobre esses resumos
+- `resumo-reunioes-teams` → processa e salva uma reunião específica sob demanda
+- `reunioes-consulta` → busca e responde perguntas sobre os resumos salvos
+- **Rotina diária** → automatiza o ciclo completo sem intervenção manual
 
-Instale as duas para ter o fluxo completo de gestão de reuniões.
+Instale as três peças para ter o fluxo completo de gestão de reuniões.
